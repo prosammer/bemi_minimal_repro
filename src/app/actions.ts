@@ -1,7 +1,9 @@
 "use server"
-import {db} from "~/server/db";
+import { PrismaClient } from "@prisma/client";
+import { withPgAdapter } from "@bemi-db/prisma";
 
 export async function getPosts() {
-    const res = await db.post.findMany();
+    const prisma = withPgAdapter(new PrismaClient());
+    const res = await prisma.post.findMany();
     return res;
 }
